@@ -9,12 +9,24 @@ name = "pypi"
 
 requests = "*"
 pyquery = "*"
-"html2text" = "*"
 fake-useragent = "*"
 parse = "*"
 "bs4" = "*"
+"w3lib" = "*"
+pyppeteer = "*"
 
 
 [dev-packages]
 
 twine = "*"
+requests-file = "*"
+pytest = "*"
+"e1839a8" = {path = ".", editable = true}
+sphinx = "*"
+mypy = "*"
+pytest-asyncio = "*"
+
+
+[scripts]
+
+tests = "pytest -v -m ok"

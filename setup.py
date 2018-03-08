@@ -9,7 +9,7 @@ import os
 import sys
 from shutil import rmtree
 
-from setuptools import find_packages, setup, Command
+from setuptools import setup, Command
 
 # Package meta-data.
 NAME = 'requests-html'
@@ -17,11 +17,11 @@ DESCRIPTION = 'HTML Parsing for Humans.'
 URL = 'https://github.com/kennethreitz/requests-html'
 EMAIL = 'me@kennethreitz.org'
 AUTHOR = 'Kenneth Reitz'
-VERSION = '0.1.1'
+VERSION = '0.8.0'
 
 # What packages are required for this module to be executed?
 REQUIRED = [
-    'requests', 'pyquery', 'html2text', 'fake-useragent', 'parse', 'bs4'
+    'requests', 'pyquery', 'fake-useragent', 'parse', 'bs4', 'w3lib', 'pyppeteer'
 ]
 
 # The rest you shouldn't have to touch too much :)
@@ -66,6 +66,10 @@ class UploadCommand(Command):
         self.status('Uploading the package to PyPi via Twine…')
         os.system('twine upload dist/*')
 
+        self.status('Publishing git tags…')
+        os.system('git tag v{0}'.format(VERSION))
+        os.system('git push --tags')
+
         sys.exit()
 
 
@@ -78,6 +82,7 @@ setup(
     author=AUTHOR,
     author_email=EMAIL,
     url=URL,
+    python_requires='>=3.6.0',
     # If your package is a single module, use this instead of 'packages':
     py_modules=['requests_html'],
 
@@ -92,8 +97,6 @@ setup(
         # Full list: https://pypi.python.org/pypi?%3Aaction=list_classifiers
         'License :: OSI Approved :: MIT License',
         'Programming Language :: Python',
-        'Programming Language :: Python :: 3.4',
-        'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: Implementation :: CPython',
         'Programming Language :: Python :: Implementation :: PyPy'
